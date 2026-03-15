@@ -10,27 +10,28 @@
     <div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
       <h1 class="text-2xl font-bold mb-2">Kernel Boo-boo Contact Finder</h1>
       <div id="crash-input">
-      <p class="text-sm text-gray-500 mb-6" id="status-message">
-        Initializing...
-      </p>
+        <p class="text-sm text-gray-500 mb-6" id="status-message">
+          Initializing...
+        </p>
 
-      <label
-        for="crash-log"
-        class="block text-sm font-medium text-gray-700 mb-2"
-        >Paste Kernel Crash Log here:</label
-      >
-      <textarea
-        id="crash-log"
-        rows="15"
-        class="w-full p-4 font-mono text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 mb-4 bg-gray-50"
-      ></textarea>
+        <label
+          for="crash-log"
+          class="block text-sm font-medium text-gray-700 mb-2"
+          >Paste Kernel Crash Log here:</label
+        >
+        <textarea
+          id="crash-log"
+          rows="15"
+          class="w-full p-4 font-mono text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 mb-4 bg-gray-50"
+        ></textarea>
 
-      <button
-        id="analyze-btn" disabled
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-200"
-      >
-        Analyze the Boo-boo
-      </button>
+        <button
+          id="analyze-btn"
+          disabled
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-200"
+        >
+          Analyze the Boo-boo
+        </button>
       </div>
       <div id="result-box" class="mt-8 pt-6">
         <div
@@ -51,28 +52,80 @@
     \___)=(___/
         </div>
       </div>
-      <h2 class="text-xl font-bold pt-4 mb-2">Notes on submitting bug reports:</h2>
+      <h2 class="text-xl font-bold pt-4 mb-2">
+        Notes on submitting bug reports:
+      </h2>
       <div id="info">
-      <ul class="pl-4 list-disc">
-      <li>If you run a Linux kernel provided by your Linux distribution, it's best to report the issue first to their bug tracker.</li>
-      <li>Read Linux's<a href="https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html" target="_blank" class="underline">Reporting issues</a> documentation. You can skip reading the MAINTAINERS file manually since this web based tool can extract the maintainer entries from kernel crash logs.</li>
-      <li>Especially read the section on <a href="https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html#decode-failure-messages" target="_blank" class="underline">decoding stack traces</a>.</li>
-      <li>Send Email in plain text. See <a href="https://useplaintext.email" target="_blank" class="underline">https://useplaintext.email</a> for more information.</li>
-      <li>Always CC linux-kernel@vger.kernel.org.</li>
-      <li>Don't skip the mailing lists, writing privately to kernel maintainers is considered rude.</li>
-      <li>Some subsystems provide a chat contact, mostly IRC. If you want to read more on IRC, see <a href="https://libera.chat/guides/basics" target="_blank" class="underline">New to Using IRC</a>.</li>
-      <li>If you have further questions, feel free to join #kernelnewbies on the irc.oftc.net IRC network.</li>
-      <li>Be patient.</li>
-      </ul>
+        <ul class="pl-4 list-disc">
+          <li>
+            If you run a Linux kernel provided by your Linux distribution, it's
+            best to report the issue first to their bug tracker.
+          </li>
+          <li>
+            Read Linux's<a
+              href="https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html"
+              target="_blank"
+              class="underline"
+              >Reporting issues</a
+            >
+            documentation. You can skip reading the MAINTAINERS file manually
+            since this web based tool can extract the maintainer entries from
+            kernel crash logs.
+          </li>
+          <li>
+            Especially read the section on
+            <a
+              href="https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html#decode-failure-messages"
+              target="_blank"
+              class="underline"
+              >decoding stack traces</a
+            >.
+          </li>
+          <li>
+            Send Email in plain text. See
+            <a
+              href="https://useplaintext.email"
+              target="_blank"
+              class="underline"
+              >https://useplaintext.email</a
+            >
+            for more information.
+          </li>
+          <li>Always CC linux-kernel@vger.kernel.org.</li>
+          <li>
+            Don't skip the mailing lists, writing privately to kernel
+            maintainers is considered rude.
+          </li>
+          <li>
+            Some subsystems provide a chat contact, mostly IRC. If you want to
+            read more on IRC, see
+            <a
+              href="https://libera.chat/guides/basics"
+              target="_blank"
+              class="underline"
+              >New to Using IRC</a
+            >.
+          </li>
+          <li>
+            If you have further questions, feel free to join #kernelnewbies on
+            the irc.oftc.net IRC network.
+          </li>
+          <li>Be patient.</li>
+        </ul>
       </div>
-    </div><div class="w-full flex justify-center py-8 text-xs"><a href="https://github.com/sigma-star/kbooboo" target="_blank">View on GitHub</a></div>
+    </div>
+    <div class="w-full flex justify-center py-8 text-xs">
+      <a href="https://github.com/sigma-star/kbooboo" target="_blank"
+        >View on GitHub</a
+      >
+    </div>
 
     <script>
       var symbolData;
       var mtData;
 
-      const logEl = document.getElementById("crash-log")
-	logEl.placeholder = `[  102.320032] WARNING: CPU: 1 PID: 537 at some/naughty/driver.c:216 _check_op+0x15c/0x168
+      const logEl = document.getElementById("crash-log");
+      logEl.placeholder = `[  102.320032] WARNING: CPU: 1 PID: 537 at some/naughty/driver.c:216 _check_op+0x15c/0x168
 [  102.328775] Modules linked in: rfkill ipv6
 [  102.335289] CPU: 0 PID: 537 Comm: funkyprg Not tainted 7.0-rc1 #1
 [  102.341745] Hardware name: Tux's victim
@@ -90,29 +143,29 @@
 `;
 
       async function fetchAndDecompressJSON(url) {
-          const response = await fetch(url);
+        const response = await fetch(url);
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-          const decompressionStream = new DecompressionStream("gzip");
+        const decompressionStream = new DecompressionStream("gzip");
 
-          const decompressedStream =
-            response.body.pipeThrough(decompressionStream);
+        const decompressedStream =
+          response.body.pipeThrough(decompressionStream);
 
-          const decompressedResponse = new Response(decompressedStream);
+        const decompressedResponse = new Response(decompressedStream);
 
-          const jsonData = await decompressedResponse.json();
-          return jsonData;
+        const jsonData = await decompressedResponse.json();
+        return jsonData;
       }
 
       async function fetchKernelData() {
         const statusEl = document.getElementById("status-message");
         try {
           data = await fetchAndDecompressJSON("data.json.gz");
-          symbolData = data['Symbols'];
-          mtData = data['Maintainers']
+          symbolData = data["Symbols"];
+          mtData = data["Maintainers"];
           statusEl.textContent = "Data loaded successfully. Ready to analyze.";
           statusEl.classList.replace("text-gray-500", "text-green-600");
           document.getElementById("analyze-btn").disabled = false;
@@ -134,57 +187,58 @@
           return;
         }
 
-	/*
-	 * Match log lines with the following forms and extract SYMBOL:
-	 * SYMBOL+0xOFF/0xLEN
-	 * SYMBOL some/source.c:LINE
-	 * SYMBOL (some/source.c:LINE)
-	 */
-	const patterns = [
-		/([a-zA-Z0-9_]+)\+0x[0-9a-z]+\/0x[0-9a-z]+/,
-		/([a-zA-Z0-9_]+)\s\(?[a-zA-Z0-9\/\.]+\.[chS]:[0-9]+/
-	];
+        /*
+         * Match log lines with the following forms and extract SYMBOL:
+         * SYMBOL+0xOFF/0xLEN
+         * SYMBOL some/source.c:LINE
+         * SYMBOL (some/source.c:LINE)
+         */
+        const patterns = [
+          /([a-zA-Z0-9_]+)\+0x[0-9a-z]+\/0x[0-9a-z]+/,
+          /([a-zA-Z0-9_]+)\s\(?[a-zA-Z0-9\/\.]+\.[chS]:[0-9]+/,
+        ];
 
-	/*
-	 * We ignore ambiguous stack trace entries:
-	 * ? SYMBOL+0xOFF/0xLEN
-	 */
-	const antiPatterns = [
-		/\?\s([a-zA-Z0-9_]+)\+0x[0-9a-z]+\/0x[0-9a-z]+/,
-	];
+        /*
+         * We ignore ambiguous stack trace entries:
+         * ? SYMBOL+0xOFF/0xLEN
+         */
+        const antiPatterns = [/\?\s([a-zA-Z0-9_]+)\+0x[0-9a-z]+\/0x[0-9a-z]+/];
 
-	/*
-	 * These symbols are very common in stack traces and provide
-	 * no value
-	 */
-	const symbolBlacklist = [
-		'__warn',
-		'dump_stack',
-		'dump_stack_lvl',
-		'panic',
-		'show_stack',
-		'unwind_backtrace',
-		'vpanic',
-		'warn_slowpath_fmt',
-	];
+        /*
+         * These symbols are very common in stack traces and provide
+         * no value
+         */
+        const symbolBlacklist = [
+          "__warn",
+          "dump_stack",
+          "dump_stack_lvl",
+          "panic",
+          "show_stack",
+          "unwind_backtrace",
+          "vpanic",
+          "warn_slowpath_fmt",
+        ];
 
         var foundSymbols = [];
         var stackTraces = [];
         let match;
 
         line_loop: for (const line of logText.split(/\r?\n/)) {
-	  for (pat of antiPatterns) {
-		  if ((match = pat.exec(line)) !== null) {
-		    continue line_loop;
-		  }
-	  }
+          for (pat of antiPatterns) {
+            if ((match = pat.exec(line)) !== null) {
+              continue line_loop;
+            }
+          }
 
-	  for (pat of patterns) {
-		  if ((match = pat.exec(line)) !== null) {
-		    foundSymbols.push(match[1]);
-		    continue line_loop;
-		  }
-	  }
+          for (pat of patterns) {
+            if ((match = pat.exec(line)) !== null) {
+              const sym = match[1];
+              if (!symbolBlacklist.includes(sym)) {
+                foundSymbols.push(match[1]);
+              }
+              continue line_loop;
+            }
+          }
 
           if (foundSymbols.length > 2) {
             stackTraces.push(foundSymbols);
@@ -205,7 +259,7 @@
           statusEl.textContent = `Found ${stackTraces.length} stack trace(s) in pasted log\n`;
 
           stackTraces.forEach((s, i) => {
-	    outputHtml += `Stack trace #${i}:\n`;
+            outputHtml += `Stack trace #${i}:\n`;
             if (s.length < 4) {
               outputHtml += `Warning: stack trace contains only ${s.length} symbol(s)\n`;
             }
@@ -222,7 +276,7 @@
                 mtIds.forEach((mt) => {
                   mts.push(mtData[mt]);
                 });
-	      }
+              }
             });
 
             mts = [...new Set(mts)];
@@ -231,16 +285,16 @@
               outputHtml += `${m.Name}\n${"-".repeat(m.Name.length)}\n`;
               if (m.MLContacts || m.PersonContacts) {
                 outputHtml += `Email:\n`;
-		if (m.MLContacts) {
-                m.MLContacts.forEach((c) => {
-                  outputHtml += ` ${c}\n`;
-                });
-		}
-		if (m.PersonContacts) {
-                m.PersonContacts.forEach((c) => {
-                  outputHtml += ` ${c}\n`;
-                });
-		}
+                if (m.MLContacts) {
+                  m.MLContacts.forEach((c) => {
+                    outputHtml += ` ${c}\n`;
+                  });
+                }
+                if (m.PersonContacts) {
+                  m.PersonContacts.forEach((c) => {
+                    outputHtml += ` ${c}\n`;
+                  });
+                }
               }
               if (m.ChatContacts) {
                 outputHtml += `Chat:\n`;
